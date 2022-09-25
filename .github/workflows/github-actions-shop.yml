@@ -7,7 +7,7 @@ jobs:
   test:
     runs-on: ${{ matrix.os }}
     strategy:
-      max-paralel: 4
+      max-parallel: 4
       matrix:
         os: [ ubuntu-latest, centos-latest ]
         python-version: [ 3.7, 3.8, 3.9, 3.10 ]
