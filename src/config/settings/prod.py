@@ -1,4 +1,4 @@
-from config.settings.base import *  # noqoa:
+from config.settings.base import *  # noqa
 
 CURRENT_ENV = "PROD"
 
