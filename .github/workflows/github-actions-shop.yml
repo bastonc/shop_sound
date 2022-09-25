@@ -2,6 +2,8 @@ name: GitHub Actions Shop
 on:
   - push
   - pull_request
+env:
+  DJANGO_SETTINGS_MODULE: config.settings.dev
 
 jobs:
   test:
