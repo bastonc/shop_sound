@@ -21,8 +21,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent.parent
 SECRET_KEY = "django-insecure-g^0=er1^#nv_ghu06ad+3j@d3u_o+bcs$$nfqw4=x-mcds+t+-"
 
 # Application definition
+LOCAL_APPS = [
+    "accounts",
+    "core",
+    "shop",
+]
 
-INSTALLED_APPS = [
+DJANGO_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -30,6 +35,8 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
 ]
+
+INSTALLED_APPS = DJANGO_APPS + LOCAL_APPS
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -113,3 +120,15 @@ STATIC_URL = "static/"
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+# Product image
+PRODUCT_UPLOAD_IMAGE = "static/image/products/"
+PRODUCT_IMAGE_DEFAULT = "static/image/products/non-image.png"
+
+# Sub-category image
+SUB_CATEGORY_UPLOAD_IMAGE = "static/image/sub-category/"
+SUB_CATEGORY_IMAGE_DEFAULT = "static/image/sub-category/non-image.png"
+
+# Category image
+CATEGORY_UPLOAD_IMAGE = "static/image/category/"
+CATEGORY_IMAGE_DEFAULT = "static/image/category/non-image.png"
