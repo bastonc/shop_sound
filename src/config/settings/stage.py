@@ -4,4 +4,4 @@ CURRENT_ENV = "STAGE"
 
 DEBUG = False
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ["*"]
