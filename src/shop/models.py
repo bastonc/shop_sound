@@ -44,7 +44,7 @@ class Product(BaseEntity):
         USD = "USD", "USD"
 
     brand = models.ForeignKey(to="shop.Brand", related_name="brand", on_delete=models.CASCADE)
-    sub_category = models.OneToOneField(to="shop.SubCategory", related_name="sub_category", on_delete=models.CASCADE)
+    sub_category = models.ForeignKey(to="shop.SubCategory", related_name="sub_category", on_delete=models.CASCADE)
     description = models.TextField(max_length=1500, null=True)
     image = models.ImageField(
         upload_to=settings.PRODUCT_UPLOAD_IMAGE, null=True, default=settings.PRODUCT_IMAGE_DEFAULT
@@ -53,7 +53,7 @@ class Product(BaseEntity):
     currency = models.CharField(choices=CURRENCY_CHOICES.choices, default=CURRENCY_CHOICES.UAH, max_length=3)
 
     def __str__(self):
-        return f"{self.name}"
+        return f"{self.name} {self.price} "
 
     def product_price(self):
         return self.price
