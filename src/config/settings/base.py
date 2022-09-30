@@ -28,9 +28,8 @@ LOCAL_APPS = [
 ]
 
 THIRD_PARTY_APPS = [
-   "django_extensions",
+    "django_extensions",
 ]
-
 
 DJANGO_APPS = [
     "django.contrib.admin",
