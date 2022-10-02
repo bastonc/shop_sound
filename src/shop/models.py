@@ -27,12 +27,13 @@ class Order(models.Model):
         related_name="products",
         blank=True,
     )
-    total_price = models.SmallIntegerField(null=True)
     date_time_create = models.DateTimeField(null=True, auto_now_add=True)
     date_time_update = models.DateTimeField(null=True, auto_now=True)
     status = models.CharField(choices=STATUS_CHOICE.choices, default=STATUS_CHOICE.NEW, max_length=10)
     order_num = models.UUIDField(unique=True, null=True)
 
+    def total_price(self):
+        return sum(product.price for product in self.products.all())
     class Meta:
         verbose_name = _("Order")
         verbose_name_plural = _("Orders")
@@ -46,6 +47,7 @@ class Product(BaseEntity):
     brand = models.ForeignKey(to="shop.Brand", related_name="brand", on_delete=models.CASCADE)
     sub_category = models.ForeignKey(to="shop.SubCategory", related_name="sub_category", on_delete=models.CASCADE)
     description = models.TextField(max_length=1500, null=True)
+    availability = models.BooleanField(default=True, null=True)
     image = models.ImageField(
         upload_to=settings.PRODUCT_UPLOAD_IMAGE, null=True, default=settings.PRODUCT_IMAGE_DEFAULT
     )
