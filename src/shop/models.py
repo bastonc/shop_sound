@@ -34,6 +34,7 @@ class Order(models.Model):
 
     def total_price(self):
         return sum(product.price for product in self.products.all())
+
     class Meta:
         verbose_name = _("Order")
         verbose_name_plural = _("Orders")
