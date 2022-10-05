@@ -2,7 +2,7 @@ from rest_framework import serializers
 from rest_framework.serializers import ModelSerializer
 
 from accounts.models import Customers
-from shop.models import Product, SubCategory, Category
+from shop.models import Category, Product, SubCategory
 
 
 class CustomerSerializer(ModelSerializer):

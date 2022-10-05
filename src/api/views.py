@@ -1,10 +1,11 @@
 from django.shortcuts import render
-from rest_framework.viewsets import ModelViewSet
 from rest_framework.generics import CreateAPIView, RetrieveAPIView
-from accounts.models import Customers
-from api.serializers import CustomerSerializer, ProductSerializer, SubCategorySerializer, CategorySerializer
-from shop.models import Product, SubCategory, Category
+from rest_framework.viewsets import ModelViewSet
 
+from accounts.models import Customers
+from api.serializers import (CategorySerializer, CustomerSerializer,
+                             ProductSerializer, SubCategorySerializer)
+from shop.models import Category, Product, SubCategory
 
 # User views
 
