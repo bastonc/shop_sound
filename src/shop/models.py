@@ -89,6 +89,7 @@ class SubCategory(BaseEntity):
     image = models.ImageField(
         upload_to=settings.SUB_CATEGORY_UPLOAD_IMAGE, null=True, default=settings.SUB_CATEGORY_IMAGE_DEFAULT
     )
+    alias = models.CharField(max_length=100, null=True)
 
     def __str__(self):
         return f"{self.name}"
@@ -103,6 +104,7 @@ class Category(BaseEntity):
     image = models.ImageField(
         upload_to=settings.CATEGORY_UPLOAD_IMAGE, null=True, default=settings.CATEGORY_IMAGE_DEFAULT
     )
+    alias = models.CharField(max_length=100, null=True)
 
     def __str__(self):
         return f"{self.name}"
