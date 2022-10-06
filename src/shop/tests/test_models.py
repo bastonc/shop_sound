@@ -63,7 +63,9 @@ class TestModels(TestCase):
     def setUp(self) -> None:
         self.product = self.sample_product(name="Test Product 1", price=10000)
         self.product2 = self.sample_product(name="Test Product 2", price=10000)
-        self.user = User.objects.create_user("testUser", "test@test.com", "password")
+        self.user = get_user_model().objects.create(email="test@test.com")
+        self.user.set_password("password")
+        self.user.save()
 
     def tearDown(self) -> None:
 

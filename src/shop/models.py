@@ -46,7 +46,7 @@ class Product(BaseEntity):
         USD = "USD", "USD"
 
     brand = models.ForeignKey(to="shop.Brand", related_name="brand", on_delete=models.CASCADE)
-    sub_category = models.ForeignKey(to="shop.SubCategory", related_name="sub_category", on_delete=models.CASCADE)
+    sub_category = models.ForeignKey(to="shop.SubCategory", related_name="products", on_delete=models.CASCADE)
     description = models.TextField(max_length=1500, null=True)
     availability = models.BooleanField(default=True, null=True)
     image = models.ImageField(
