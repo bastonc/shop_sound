@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from rest_framework.generics import CreateAPIView, RetrieveAPIView
+from rest_framework.generics import CreateAPIView, RetrieveAPIView, DestroyAPIView
 from rest_framework.viewsets import ModelViewSet
 
 from accounts.models import Customers
@@ -31,6 +31,12 @@ class ProductDetailView(RetrieveAPIView):
 
     def get_object(self):
         return Product.objects.get(pk=self.kwargs.get("pk"))
+
+
+class ProductDeleteView(DestroyAPIView):
+     queryset = Product.objects.all()
+
+
 
 
 # SubCategory views

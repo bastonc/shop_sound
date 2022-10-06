@@ -19,21 +19,19 @@ class ProductSerializer(ModelSerializer):
 
 
 class SubCategorySerializer(ModelSerializer):
-
-
+    products = ProductSerializer(many=True, read_only=True)
     class Meta:
         model = SubCategory
-        fields = ("id", "index", "name", "alias", "seo_title", "seo_description", "seo_text", "image", "alias",
-                 )
+        fields = ("id", "index", "name", "alias", "seo_title", "seo_description", "seo_text", "image",
+                  "alias", "products")
 
 
 class CategorySerializer(ModelSerializer):
-    cat = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
-    #sub_categories = serializers.RelatedField(source="category", read_only=True)
+    category = SubCategorySerializer(many=True, read_only=True)
 
     class Meta:
         model = Category
-        fields = ("name", "cat")
+        fields = ("name", "alias", "seo_text", "category")
 
 
 
