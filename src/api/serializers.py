@@ -23,7 +23,14 @@ class SubCategorySerializer(ModelSerializer):
     class Meta:
         model = SubCategory
         fields = ("id", "index", "name", "alias", "seo_title", "seo_description", "seo_text", "image",
-                  "alias", "products")
+                  "alias", "category", "products")
+
+
+class SubCategoryCreateSerializer(ModelSerializer):
+    class Meta:
+        model = SubCategory
+        fields = ("__all__")
+
 
 
 class CategorySerializer(ModelSerializer):
@@ -31,7 +38,7 @@ class CategorySerializer(ModelSerializer):
 
     class Meta:
         model = Category
-        fields = ("name", "alias", "seo_text", "category")
+        fields = ("id", "name", "alias", "seo_text", "category")
 
 
 
