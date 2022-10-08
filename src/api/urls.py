@@ -20,7 +20,6 @@ routes.register("sub-categories", SubCategoriesViewSet)
 routes.register("categories", CategoriesView)
 
 
-
 urlpatterns = [
     path("", include(routes.urls)),
     path("auth/", include("rest_framework.urls")),
