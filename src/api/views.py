@@ -38,6 +38,7 @@ class ProductDeleteView(DestroyAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
 
+
 class ProductUpdateView(UpdateAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
@@ -74,7 +75,6 @@ class SubCategoryUpdateView(UpdateAPIView):
 class SubCategoryCreateView(CreateAPIView):
     queryset = SubCategory.objects.all()
     serializer_class = SubCategoryCreateSerializer
-
 
 
 # Category views
