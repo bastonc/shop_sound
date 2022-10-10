@@ -25,6 +25,7 @@ class Customers(AbstractBaseUser, PermissionsMixin):
             "Designates whether this user should be treated as active. " "Unselect this instead of deleting accounts."
         ),
     )
+    is_content = models.BooleanField(_("content_manager"), default=False, help_text=_("Only for content managers"))
     date_joined = models.DateTimeField(_("date joined"), default=timezone.now)
 
     objects = CustomerManager()
@@ -54,4 +55,3 @@ class Customers(AbstractBaseUser, PermissionsMixin):
     # def email_user(self, subject, message, from_email=None, **kwargs):
     #     """Send an email to this user."""
     #     send_mail(subject, message, from_email, [self.email], **kwargs)
-

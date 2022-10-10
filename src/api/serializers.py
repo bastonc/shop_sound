@@ -12,25 +12,35 @@ class CustomerSerializer(ModelSerializer):
 
 
 class ProductSerializer(ModelSerializer):
-
     class Meta:
         model = Product
-        fields = ("__all__")
+        fields = "__all__"
 
 
 class SubCategorySerializer(ModelSerializer):
     products = ProductSerializer(many=True, read_only=True)
+
     class Meta:
         model = SubCategory
-        fields = ("id", "index", "name", "alias", "seo_title", "seo_description", "seo_text", "image",
-                  "alias", "category", "products")
+        fields = (
+            "id",
+            "index",
+            "name",
+            "alias",
+            "seo_title",
+            "seo_description",
+            "seo_text",
+            "image",
+            "alias",
+            "category",
+            "products",
+        )
 
 
 class SubCategoryCreateSerializer(ModelSerializer):
     class Meta:
         model = SubCategory
-        fields = ("__all__")
-
+        fields = "__all__"
 
 
 class CategorySerializer(ModelSerializer):
@@ -39,9 +49,3 @@ class CategorySerializer(ModelSerializer):
     class Meta:
         model = Category
         fields = ("id", "name", "alias", "seo_text", "category")
-
-
-
-
-
-
