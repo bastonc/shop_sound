@@ -30,7 +30,12 @@ LOCAL_APPS = [
     "api",
 ]
 
-THIRD_PARTY_APPS = ["django_extensions", "rest_framework", "phonenumber_field", "drf_yasg"]
+THIRD_PARTY_APPS = [
+    "django_extensions",
+    "rest_framework",
+    "phonenumber_field",
+    "drf_yasg",
+]
 
 DJANGO_APPS = [
     "django.contrib.admin",
@@ -147,7 +152,8 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media/")
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
-DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+DEFAULT_AUTO_FIELD = "django.db.models.AutoField"
+# "django.db.tests.BigAutoField"
 
 # Product image
 PRODUCT_UPLOAD_IMAGE = "static/image/products/"

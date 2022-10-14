@@ -30,7 +30,7 @@ class TestApi(TestCase):
 
         # sample category
         self.name_category = "test API category"
-        self.alias_category = "api-alias-category"
+        self.alias_category = "tests-alias-category"
         self.category = sample_category(name=self.name_category, **{"alias": self.alias_category})
 
     def test_get_categories_anonymous(self):
@@ -57,7 +57,7 @@ class TestApi(TestCase):
 
     def test_create_sub_category_content_manager(self):
         self.client.force_authenticate(user=self.user_content_manager)
-        alias = "api-subcategory"
+        alias = "tests-subcategory"
         name = "API sub category"
         data = {
             "index": True,
