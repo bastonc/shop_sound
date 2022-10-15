@@ -8,7 +8,7 @@ services:
     command:
       - /commands/start_server.sh
     ports:
-      - 8080:8008
+      - 8000:8000
     volumes:
       - ./src/:/shop_sound
     env_file:
@@ -16,14 +16,17 @@ services:
 
   postgres:
     image: postgres:12
-    ports:
-      - 5432:5432
+    expose:
+      - 5432
+#    ports:
+#      - 5432:5432
     volumes:
-      - pg_data:/var/lib/postgresql/data
+      - local_postgres_data:/var/lib/postgresql/data
+      - local_postgres_data_backups:/backups
     env_file:
       - .env
 
 volumes:
-  pg_data: { }
+  local_postgres_data:
+  local_postgres_data_backups:
 
-# docker run --rm -d -p 8080:8008 -v `pwd`/src:/shop_sound --name shop_sound_cont shop_sound /commands/start_server.sh
