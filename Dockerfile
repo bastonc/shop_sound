@@ -7,8 +7,6 @@ RUN mkdir /shop_sound && mkdir /commands
 # Copying requrements.txt for all dependecies
 COPY ./requirements.txt /shop_sound
 
-# Copying scripts
-COPY ./commands /commands
 
 WORKDIR /shop_sound
 
