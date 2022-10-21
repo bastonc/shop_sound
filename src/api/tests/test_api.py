@@ -30,23 +30,23 @@ class TestApi(TestCase):
 
         # sample category
         self.name_category = "test API category"
-        self.alias_category = "api-alias-category"
+        self.alias_category = "tests-alias-category"
         self.category = sample_category(name=self.name_category, **{"alias": self.alias_category})
 
     def test_get_categories_anonymous(self):
         self.client.force_authenticate(user=self.user)
-        result = self.client.get("http://localhost:8000/api/categories/")
+        result = self.client.get(reverse("api:category-list"))
         self.assertEqual(result.status_code, HTTP_403_FORBIDDEN)
 
     def test_get_categories_admin(self):
         self.client.force_authenticate(user=self.admin)
-        result = self.client.get("http://localhost:8000/api/categories/")
+        result = self.client.get(reverse("api:category-list"))
         self.assertEqual(result.status_code, HTTP_200_OK)
         self.assertEqual(result.data[0]["name"], "test API category")
 
     def test_get_categories_content_manager(self):
         self.client.force_authenticate(user=self.user_content_manager)
-        result = self.client.get("http://localhost:8000/api/categories/")
+        result = self.client.get(reverse("api:category-list"))
         self.assertEqual(result.status_code, HTTP_403_FORBIDDEN)
 
     def test_get_category_by_alias_anonymous(self):
@@ -57,7 +57,7 @@ class TestApi(TestCase):
 
     def test_create_sub_category_content_manager(self):
         self.client.force_authenticate(user=self.user_content_manager)
-        alias = "api-subcategory"
+        alias = "tests-subcategory"
         name = "API sub category"
         data = {
             "index": True,

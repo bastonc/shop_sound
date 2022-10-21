@@ -1,0 +1,31 @@
+version: "3"
+
+services:
+  backend:
+    build: ./
+    container_name: shop_sound_cont
+    working_dir: /shop_sound
+    command:
+      - /commands/start_server.sh
+    ports:
+      - 8000:8000
+    volumes:
+      - ./src/:/shop_sound
+      - ./commands:/commands
+    env_file:
+      - .env
+
+  postgres:
+    image: postgres:12
+    expose:
+      - 5432
+    volumes:
+      - local_postgres_data:/var/lib/postgresql/data
+      - local_postgres_data_backups:/backups
+    env_file:
+      - .env
+
+volumes:
+  local_postgres_data:
+  local_postgres_data_backups:
+
