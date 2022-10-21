@@ -112,3 +112,14 @@ class Category(BaseEntity):
     class Meta:
         verbose_name = _("Category")
         verbose_name_plural = _("Categories")
+
+
+class Pages(BaseEntity):
+    h1 = models.CharField(null=True, max_length=100)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = _("Static page")
+        verbose_name_plural = _("Static pages")
