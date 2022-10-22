@@ -20,8 +20,21 @@ class IndexView(TemplateView):
         else:
             products = Product.objects.all()
             categories = Category.objects.all()
-            page = Pages.objects.filter(name="index").get()
-            context["meta"] = {"title": page.seo_title, "description": page.seo_description, "h1": page.h1}
+            page = Pages.objects.filter(name="index")
+            if page:
+                page_data = page.get()
+                context["meta"] = {
+                    "title": page_data.seo_title,
+                    "description": page_data.seo_description,
+                    "h1": page_data.h1,
+                }
+            else:
+                context["meta"] = {
+                    "title": "default_title(create index page in static page)",
+                    "description": "default_description(create index page in static page)",
+                    "h1": "default_h1(create index page in static page)",
+                }
+
             self.template_name = "shop/index.html"
         context["products"] = products
         context["categories"] = categories
