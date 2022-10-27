@@ -1,4 +1,4 @@
-from shop.models import Product, Category, Pages, SubCategory
+from shop.models import Category, Pages, Product, SubCategory
 
 
 def get_meta_data_page(page_name):

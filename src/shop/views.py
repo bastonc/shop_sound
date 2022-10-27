@@ -1,10 +1,10 @@
 from django.http import HttpResponse
 from django.views.generic import TemplateView
 
+from shop.helpers.categories_processing import (get_current_category,
+                                                get_current_sub_category,
+                                                get_products, get_sub_category)
 from shop.helpers.search_processing import get_header
-from shop.helpers.categories_processing import (get_sub_category, get_products, get_current_category,
-                                                get_current_sub_category)
-
 
 
 class CategoryView(TemplateView):
@@ -18,7 +18,6 @@ class CategoryView(TemplateView):
 
 
 class SubCategoryView(TemplateView):
-
     def get(self, request, *args, **kwargs):
         context = super().get_context_data()
         context, template_name = get_header(request=request, context=context, template_path="shop/listing.html")
@@ -27,5 +26,3 @@ class SubCategoryView(TemplateView):
         context["current_category"] = get_current_category(category_alias=kwargs["category_name"])
         self.template_name = template_name
         return self.render_to_response(context)
-
-

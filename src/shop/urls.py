@@ -10,6 +10,6 @@ app_name = "shop"
 urlpatterns = [
     # re_path(r"^([a-z]*-*)$", CategoryView.as_view(), name="category_view"),
     path("", CategoryView.as_view(), name="category_view"),
-    path(r'/<str:sub_category_name>', SubCategoryView, name="sub_category_view"),
-    #re_path(r"^(.*\/.*)$", SubCategoryView, name="category_view"),
+    path(r"/<str:sub_category_name>", SubCategoryView, name="sub_category_view"),
+    # re_path(r"^(.*\/.*)$", SubCategoryView, name="category_view"),
 ]
