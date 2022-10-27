@@ -1,4 +1,4 @@
-from shop.models import Product, Category, Pages
+from shop.models import Product, Category, Pages, SubCategory
 
 
 def get_meta_data_page(page_name):
@@ -24,13 +24,12 @@ def get_header(request, context, template_path):
     if request.GET.get("search"):
         products = Product.objects.filter(name=str(request.GET["search"]).strip().capitalize())
         context["meta"] = get_meta_data_page(page_name="search")
-        template_name = "students/student_search.html"
+        template_name = "shop/search.html"
     else:
-        products = Product.objects.all()
-        categories = Category.objects.all()
         context["meta"] = get_meta_data_page(page_name="index")
         template_name = template_path
 
-    context["products"] = products
+    # context["sub_category"] = sub_categories TODO add output sub categories in main menu
+    # context["products"] = products TODO get top products
     context["categories"] = categories
     return context, template_name

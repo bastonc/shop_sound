@@ -37,6 +37,7 @@ services:
       - ./src/:/shop_sound
       - ./commands:/commands
       - static_content:/shop_sound/static_collect/
+      - media_content:/shop_sound/media_collect/
 
     command:
       - /commands/start_server_${MODE}.sh
