@@ -94,7 +94,7 @@
                                 <li class="has-sub"><a href="#">Categories</a>
                                     <ul>
                                         {% for category in categories %}
-                                        <li><a href="#">{{ category.name }}</a></li>
+                                        <li><a href="{{ request.scheme }}://{{ request.get_host }}/{{ category.alias }}">{{ category.name }}</a></li>
                                         {% endfor %}
                                     </ul>
                                 </li>

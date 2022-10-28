@@ -1,9 +1,6 @@
-from django.shortcuts import render
 from django.views.generic import TemplateView
 
-from shop.models import Category, Pages, Product
-
-from core.helpers.search_processing import get_header
+from shop.helpers.search_processing import get_header
 
 # Create your views here.
 

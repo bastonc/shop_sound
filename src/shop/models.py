@@ -26,6 +26,7 @@ class Order(models.Model):
         to="shop.Product",
         related_name="products",
         blank=True,
+        null=True,
     )
     date_time_create = models.DateTimeField(null=True, auto_now_add=True)
     date_time_update = models.DateTimeField(null=True, auto_now=True)

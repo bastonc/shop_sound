@@ -6,7 +6,7 @@ import sys
 
 def main():
     """Run administrative tasks."""
-    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "config.settings.dev")
+    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "config.settings")
     if sys.argv[1] == "test":
         print("NOTE: Running black formation")
         print(os.popen("black --config .black.toml .").read())

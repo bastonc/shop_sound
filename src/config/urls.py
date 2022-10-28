@@ -16,10 +16,16 @@ Including another URLconf
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
-from django.urls import include, path
+from django.urls import include, path, re_path
+
+from shop.views import CategoryView, SubCategoryView
 
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("api/", include("api.urls")),
     path("", include("core.urls")),
-] + static(settings.STATIC_URL, document_root=settings.STATIC_URL)
+    re_path(r"^(?P<category_name>[-\w]+)$", CategoryView.as_view(), name="category_view"),
+    re_path(
+        r"^(?P<category_name>[-\w]+)/(?P<sub_category_name>[-\w]+)$", SubCategoryView.as_view(), name="category_view"
+    ),
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
