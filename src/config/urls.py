@@ -24,8 +24,10 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("api/", include("api.urls")),
     path("", include("core.urls")),
+    path("generate/", include("shop.urls")),
     re_path(r"^(?P<category_name>[-\w]+)$", CategoryView.as_view(), name="category_view"),
     re_path(
         r"^(?P<category_name>[-\w]+)/(?P<sub_category_name>[-\w]+)$", SubCategoryView.as_view(), name="category_view"
     ),
+
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

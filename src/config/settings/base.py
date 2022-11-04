@@ -159,3 +159,10 @@ USE_TZ = True
 
 DEFAULT_AUTO_FIELD = "django.db.models.AutoField"
 # "django.db.tests.BigAutoField"
+
+CELERY_BROKER_URL = "redis://redis"
+CELERY_RESULT_BACKEND = "redis://redis"
+
+CELERY_ACCEPT_CONTENT = ["application/json"]
+CELERY_RESULT_SERIALIZER = "json"
+CELERY_TASK_SERIALIZER = "json"

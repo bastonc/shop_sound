@@ -45,31 +45,31 @@ services:
       - .env
     depends_on:
      - postgres
+#
+#  mongodb:
+#    image: mongo:3-stretch
+#    container_name: mongodb_container
+#    restart: always
+#    ports:
+#      - 27017:27017
+#    volumes:
+#      - mongo_data:/data/db
+#    command: ["--bind_ip_all", "--smallfiles"]
+#    env_file:
+#      - .env
 
-  mongodb:
-    image: mongo:3-stretch
-    container_name: mongodb_container
-    restart: always
-    ports:
-      - 27017:27017
-    volumes:
-      - mongo_data:/data/db
-    command: ["--bind_ip_all", "--smallfiles"]
-    env_file:
-      - .env
-
-  mongoadmin:
-    image: mongo-express
-    restart: always
-    container_name: mongo_admin_container
-    ports:
-      - 8091:8081
-    env_file:
-      - .env
-    links:
-      - mongodb
-    depends_on:
-      - mongodb
+#  mongoadmin:
+#    image: mongo-express
+#    restart: always
+#    container_name: mongo_admin_container
+#    ports:
+#      - 8091:8081
+#    env_file:
+#      - .env
+#    links:
+#      - mongodb
+#    depends_on:
+#      - mongodb
 
   nginx:
     image: nginx:1.19
@@ -85,6 +85,40 @@ services:
     depends_on:
       - backend
 
+
+  celery-service:
+    build: ./
+    command:
+      - /commands/start_celery.sh
+
+    restart: always
+    volumes:
+      - ./src/:${CELERY_WORKING_DIR}
+      - ./commands:/commands
+    env_file:
+      - .env
+    ports:
+      - 5556:5555
+    depends_on:
+      - redis
+
+  redis:
+    image: redis
+    env_file:
+      - .env
+    restart: always
+    depends_on:
+      - backend
+
+  redisadmin:
+    container_name: redisadmin
+    image: rediscommander/redis-commander:latest
+    hostname: redisadmin
+    restart: always
+    ports:
+      - 8092:8081
+    env_file:
+      - .env
 
 volumes:
   local_postgres_data:
