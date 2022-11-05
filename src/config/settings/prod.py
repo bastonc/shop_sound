@@ -22,22 +22,23 @@ DATABASES = {
     },
 }
 
-STATIC_ROOT = "static_collect/"
 STATIC_URL = "static/"
+STATIC_ROOT = "static_collect/"
 
-MEDIA_ROOT = "media_collect/"
 MEDIA_URL = "media/"
+MEDIA_ROOT = "media_collect/"
 
-STATICFILES_DIRS = [os.path.join(BASE_DIR, "static/"), os.path.join(BASE_DIR, "media")]
+
+STATICFILES_DIRS = [os.path.join(BASE_DIR, "static"), os.path.join(BASE_DIR, "media")]
 
 # Product image
-PRODUCT_UPLOAD_IMAGE = "/image/products/"
-PRODUCT_IMAGE_DEFAULT = "image/non-image.png"
+PRODUCT_UPLOAD_IMAGE = "media/image/products/"
+PRODUCT_IMAGE_DEFAULT = "static/images/non-image.png"
 
 # Sub-category image
-SUB_CATEGORY_UPLOAD_IMAGE = "/image/sub-category/"
-SUB_CATEGORY_IMAGE_DEFAULT = "image/non-image.png"
+SUB_CATEGORY_UPLOAD_IMAGE = "media/image/sub-category/"
+SUB_CATEGORY_IMAGE_DEFAULT = "static/images/non-image.png"
 
 # Category image
-CATEGORY_UPLOAD_IMAGE = "/image/category/"
-CATEGORY_IMAGE_DEFAULT = "image/non-image.png"
+CATEGORY_UPLOAD_IMAGE = "media/image/category/"
+CATEGORY_IMAGE_DEFAULT = "static/images/non-image.png"

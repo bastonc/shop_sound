@@ -26,7 +26,7 @@ DATABASES = {
 STATIC_URL = "static/"
 STATIC_ROOT = "static_collect/"
 
-MEDIA_URL = "media2/"
+MEDIA_URL = "media/"
 MEDIA_ROOT = "media_collect/"
 
 
