@@ -22,10 +22,11 @@ def get_meta_data_page(page_name):
 def get_header(request, context, template_path):
     categories = Category.objects.all()
     if request.GET.get("search"):
-        products = Product.objects.filter(name=str(request.GET["search"]).strip().capitalize())
+        context['products'] = Product.objects.filter(name=str(request.GET["search"]).strip())
         context["meta"] = get_meta_data_page(page_name="search")
         template_name = "shop/search.html"
     else:
+        context['products'] = None
         context["meta"] = get_meta_data_page(page_name="index")
         template_name = template_path
 

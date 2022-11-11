@@ -1,0 +1,47 @@
+{% extends "main.html" %}
+{% load static %}
+{% block meta %}
+
+<title> {{ meta.title }} </title>
+<meta name="description" content="{{ meta.description }}">
+
+{% endblock meta %}
+
+
+{% block content %}
+<div class="page-header">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="page-breadcrumb">
+                        <ol class="breadcrumb">
+                            <li><a href="{{ request.scheme }}://{{ request.get_host }}">Sound equipment</a></li>
+                            <li>{{ current_category.name }}</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+ <div class="space-medium">
+        <div class="container">
+            <div class="row">
+                <div class="isotope">
+                    {% for product in prducts %}
+                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 post-masonry ">
+                        <div class="post-block">
+                            <!-- post block -->
+                            <h4 class="post-title"><a href="{{ request.path }}/{{ product.id }}" class="title">{{ product.name }}</a></h4>
+                            <div class="post-img">
+                                <a href="{{ request.path }}/{{ product.id }}" class="img">
+                                 <img src="{{ product.image }} " height="150" width="150" />
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- blog -->
+{% endblock content %}

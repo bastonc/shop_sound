@@ -18,7 +18,7 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import include, path, re_path
 
-from shop.views import CategoryView, SubCategoryView
+from shop.views import CategoryView, SubCategoryView, ProductView
 
 urlpatterns = [
     path("admin/", admin.site.urls),
@@ -28,6 +28,9 @@ urlpatterns = [
     re_path(r"^(?P<category_name>[-\w]+)$", CategoryView.as_view(), name="category_view"),
     re_path(
         r"^(?P<category_name>[-\w]+)/(?P<sub_category_name>[-\w]+)$", SubCategoryView.as_view(), name="category_view"
+    ),
+    re_path(
+          r"^(?P<category_name>[-\w]+)/(?P<sub_category_name>[-\w]+)/(?P<pk_item>[-\d]+)$", ProductView.as_view(), name="category_view"
     ),
 
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

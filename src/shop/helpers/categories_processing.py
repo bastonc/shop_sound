@@ -21,3 +21,8 @@ def get_current_category(category_alias):
 def get_current_sub_category(sub_category_alias):
     sub_category = SubCategory.objects.filter(alias=sub_category_alias).get()
     return sub_category
+
+
+def get_item_product(id_product):
+    product_item = Product.objects.get(pk=id_product)
+    return product_item
