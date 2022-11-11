@@ -70,7 +70,7 @@ def generate_product():
     for sub_category in sub_categories:
         for _ in range(5):
             brand = brands[random.randint(0, 4)]
-            product_name = f" {brand.name} {fake.word(ext_word_list=['KRK5', 'Square one', 'DL-241', 'GL-3200'])}"
+            product_name = f"{brand.name} {fake.word(ext_word_list=['KRK5', 'Square one', 'DL-241', 'GL-3200'])}"
             param = {
                 "brand": brand,
                 "name":  product_name,

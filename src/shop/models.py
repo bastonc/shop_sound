@@ -10,6 +10,9 @@ class BaseEntity(models.Model):
     seo_description = models.CharField(max_length=300, null=True)
     name = models.CharField(max_length=150, null=True)
 
+    def clean(self):
+        super().clean()
+        self.name = self.name.lower()
     class Meta:
         abstract = True
 
