@@ -51,7 +51,7 @@ class Product(BaseEntity):
     description = models.TextField(max_length=1500, null=True)
     availability = models.BooleanField(default=True, null=True)
     image = models.ImageField(
-        upload_to=settings.PRODUCT_UPLOAD_IMAGE, null=True, default=settings.PRODUCT_IMAGE_DEFAULT
+        upload_to="image/products/", null=True, default=settings.PRODUCT_IMAGE_DEFAULT
     )
     price = models.SmallIntegerField(null=True)
     currency = models.CharField(choices=CURRENCY_CHOICES.choices, default=CURRENCY_CHOICES.UAH, max_length=3)

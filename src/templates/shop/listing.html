@@ -35,11 +35,11 @@
                             <h4 class="post-title"><a href="{{ request.path }}/{{ product.id }}" class="title">{{ product.name }}</a></h4>
                             <div class="post-img">
                                 <a href="{{ request.path }}/{{ product.id }}" class="img">
-                                 <img src="{{ request.scheme }}://{{ request.get_host }}/{{ product.image }}" height="150" width="150" />
+                                    <img src="{{ request.scheme }}://{{ request.get_host }}/{{ product.image }}" height="150" width="150" /></a>
                             </div>
                             <div class="post-content">
-
-                                <a href="#" class="btn btn-primary btn-sm">read more</a>
+                                <p> Price: {{ product.price }} {{ product.currency }}</p>
+                                <a href="#" class="btn btn-primary btn-sm">Buy</a>
                             </div>
                         </div>
                     </div>

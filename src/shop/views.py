@@ -1,6 +1,7 @@
 from django.http import HttpResponse
 from django.views.generic import TemplateView
 
+from core.tasks import generate_category, generate_sub_category, generate_product
 from shop.helpers.categories_processing import (get_current_category,
                                                 get_current_sub_category,
                                                 get_products, get_sub_category)
@@ -26,3 +27,18 @@ class SubCategoryView(TemplateView):
         context["current_category"] = get_current_category(category_alias=kwargs["category_name"])
         self.template_name = template_name
         return self.render_to_response(context)
+
+
+def generate_category_view(request):
+    generate_category.delay()
+    return HttpResponse("Category generated")
+
+
+def generate_sub_category_view(request):
+    generate_sub_category.delay()
+    return HttpResponse("Sub-category generated")
+
+
+def generate_product_view(request):
+    generate_product.delay()
+    return HttpResponse("Products create")
