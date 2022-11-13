@@ -58,6 +58,8 @@ class Product(BaseEntity):
     )
     price = models.SmallIntegerField(null=True)
     currency = models.CharField(choices=CURRENCY_CHOICES.choices, default=CURRENCY_CHOICES.UAH, max_length=3)
+    url = models.CharField(max_length=100, blank=True, null=True)
+    alias = models.CharField(max_length=100, blank=True, null=True)
 
     def __str__(self):
         return f"{self.name} {self.price} "
@@ -65,8 +67,16 @@ class Product(BaseEntity):
     def product_price(self):
         return self.price
 
+    def set_url(self):
+        category = self.sub_category.category.alias
+        sub_category = self.sub_category.alias
+        url = f"{category}/{sub_category}/{str(self.name).lower().replace(' ','-').replace('&','-amp-')}"
+        alias = f"{str(self.name).lower().replace(' ','-').replace('&','-amp-')}"
+        return url, alias
+
     def save(self, *args, **kwargs):
         self.full_clean()
+        self.url, self.alias = self.set_url()
         return super().save(*args, **kwargs)
 
     class Meta:

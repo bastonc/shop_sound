@@ -83,5 +83,7 @@ def generate_product():
                 "price": 10000,
                 "currency": "UAH"
             }
-            product_obj_list.append(Product(**param))
-    Product.objects.bulk_create(product_obj_list)
+            #product_obj_list.append(Product(**param))
+            product = Product(**param)
+            product.save()
+    #Product.objects.bulk_create(product_obj_list)

@@ -32,11 +32,16 @@
     <div class="header">
         <div class="row r1">
             <div class="col-md-9 abc">
-                <h1>{{ product.name }}</h1>
+                <h1>{{ product.name.capitalize }}</h1>
             </div>
             <div class="col-md-3 text-right pqr"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></div>
             <div class="col-md-3 text-right pqr"><p class="text-right para">{{ product.price }} {{ product.currency }} </p>
-                <button type="button" class="btn btn-outline-warning"><a href="#">BUY NOW</a></button>
+                <form action="{% url "shop:add_to_basket" product.id %}" method="post">
+                    {{ form_add_to_basket }}
+                    {% csrf_token %}
+                    <input type="submit" value="BUY">
+                </form>
+                <!--button type="button" class="btn btn-outline-warning"><a href="#">BUY NOW</a></button-->
             </div>
 
         </div>
