@@ -46,6 +46,6 @@
     </table>
     <p class="text-center">
         <a href="{% url "core:index"  %}" class="btn btn-light btn-sm">Continue shopping</a>
-        <a href="#" class="btn btn-success">Checkout</a>
+        <a href="{% url "shop:order_create" %}" class="btn btn-success">Checkout</a>
     </p>
 {% endblock %}

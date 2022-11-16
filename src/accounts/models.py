@@ -1,3 +1,5 @@
+from django.conf import settings
+from django.contrib.auth import get_user_model
 from django.contrib.auth.base_user import AbstractBaseUser
 from django.contrib.auth.models import PermissionsMixin
 from django.db import models
@@ -55,3 +57,14 @@ class Customers(AbstractBaseUser, PermissionsMixin):
     # def email_user(self, subject, message, from_email=None, **kwargs):
     #     """Send an email to this user."""
     #     send_mail(subject, message, from_email, [self.email], **kwargs)
+
+
+class Profile(models.Model):
+
+    user = models.OneToOneField(get_user_model(), on_delete=models.CASCADE)
+    avatar = models.ImageField(upload_to=settings.USER_UPLOAD_IMAGE, null=True, default=settings.DEFAULT_USER_AVATAR)
+    birth_date = models.DateField(blank=True, null=True)
+    city = models.CharField(max_length=15, blank=True, null=True)
+
+    def __str__(self):
+        return f"{self.user.first_name} {self.user.last_name} {self.user.email} {self.user.pk}"

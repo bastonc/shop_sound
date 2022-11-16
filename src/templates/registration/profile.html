@@ -1,0 +1,28 @@
+{% extends "main_no_header.html" %}
+{% block meta %}
+<meta name="description" content="{{ meta.description }}">
+    <title>{{ meta.title }} </title>
+{% endblock meta %}
+{% block content %}
+ <p>
+ {% load static %}
+    <div class="container d-flex justify-content-center">
+
+            <div class="d-flex justify-content-center">
+            <p>
+                {% if user.profile.id %}
+               <a class="btn btn-warning btn-sm" href="{% url 'edit_profile' user.profile.id %}" role="button">Edit profile</a>
+                {% endif %}
+            </p>
+            <p>Last Name: {{ user.last_name }}</p>
+            <p>First Name: {{ user.first_name }}</p>
+            <p>Email: {{ user.email }} </p>
+            <p>Avatar: <img src="{% static user.profile.avatar %}" alt="Avatar" width="100"> </p>
+            <p>Birth_date: {{ user.profile.birth_date }} </p>
+            <p>City: {{ user.profile.city }} </p>
+            </div>
+
+    </div>
+{% endblock content %}
+
+

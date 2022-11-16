@@ -1,18 +1,19 @@
 from django.http import HttpResponse
-from django.shortcuts import get_object_or_404, redirect
+from django.shortcuts import get_object_or_404, redirect, render
+from django.views import View
 from django.views.decorators.http import require_POST
 from django.views.generic import TemplateView
 
 from core.tasks import generate_category, generate_sub_category, generate_product
 from shop.basket import Basket
-from shop.forms import BasketAddProductForm
+from shop.forms import BasketAddProductForm, OrderCreateForm
 from shop.helpers.categories_processing import (get_current_category,
                                                 get_current_sub_category,
                                                 get_products,
                                                 get_sub_category,
                                                 get_item_product)
 from shop.helpers.search_processing import get_header
-from shop.models import Product
+from shop.models import Product, OrderItem
 
 
 class CategoryView(TemplateView):
@@ -52,12 +53,42 @@ class ProductView(TemplateView):
 class BasketView(TemplateView):
     def get(self, request, *args, **kwargs):
         context = super().get_context_data()
-        context, template_name = get_header(request=request, context=context, template_path="shop/product.html")
+        context, template_name = get_header(request=request, context=context, template_path="shop/basket.html")
         context['basket'] = Basket(self.request)
         context['meta'] = {"title": "Basket | Baston sound shop",
                            "description": "Basket | Baston sound shop"}
-        self.template_name = 'shop/basket.html'
+        self.template_name = template_name
         return self.render_to_response(context)
+
+
+class OrderCreateView(TemplateView):
+
+    def get(self, request, *args, **kwargs):
+        context = super().get_context_data()
+        context, template_name = get_header(request=request, context=context, template_path="shop/order/create.html")
+        context['form'] = OrderCreateForm
+        context['basket'] = Basket(request)
+        self.template_name = template_name
+        return self.render_to_response(context)
+
+    def post(self, request, *args, **kwargs):
+        context = super().get_context_data()
+        form = OrderCreateForm(request.POST)
+        basket = Basket(request)
+        context, template_name = get_header(request=request, context=context, template_path="shop/order/created.html")
+        if form.is_valid():
+            order = form.save()
+            for item in basket:
+                OrderItem.objects.create(order=order,
+                                         product=item['product'],
+                                         price=item['price'],
+                                         quantity=item['quantity'])
+            basket.clear()
+        self.template_name = template_name
+        context['order'] = order
+        return self.render_to_response(context)
+
+
 @require_POST
 def basket_add(request, pk):
     basket = Basket(request)
@@ -77,6 +108,26 @@ def basket_remove(request, pk):
     basket.remove_product(product)
     return redirect('shop:show_basket')
 
+
+
+# def order_create(request):
+#     basket = Basket(request)
+#     if request.method == 'POST':
+#         form = OrderCreateForm(request.POST)
+#         if form.is_valid():
+#             order = form.save()
+#             for item in basket:
+#                 OrderItem.objects.create(order=order,
+#                                          product=item['product'],
+#                                          price=item['price'],
+#                                          quantity=item['quantity'])
+#             basket.clear()
+#             return render(request, 'shop/order/created.html',
+#                           {'order': order})
+#     else:
+#         form = OrderCreateForm
+#     return render(request, 'shop/order/create.html',
+#                   {'cart': basket, 'form': form})
 
 # def cart_detail(request):
 #     cart = Basket(request)

@@ -4,7 +4,7 @@ from django.contrib import admin
 from django.urls import include, path, re_path
 
 from shop.views import CategoryView, SubCategoryView, generate_category_view, generate_sub_category_view, \
-    generate_product_view, basket_add, basket_remove, BasketView
+    generate_product_view, basket_add, basket_remove, BasketView, OrderCreateView
 
 app_name = "shop"
 
@@ -15,6 +15,7 @@ urlpatterns = [
     path("add/<int:pk>", basket_add, name="add_to_basket"),
     path("remove/<int:pk>", basket_remove, name="remove_from_basket"),
     path("show", BasketView.as_view(), name="show_basket"),
+    path("create", OrderCreateView.as_view(), name="order_create"),
 
 
 ]

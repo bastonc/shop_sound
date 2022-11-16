@@ -18,30 +18,66 @@ class BaseEntity(models.Model):
 
 
 class Order(models.Model):
-    class STATUS_CHOICE(models.TextChoices):
-        NEW = "New", "New"
-        APPROVE = "Approve", "Approve"
-        DELIVERY = "Delivery", "Delivery"
-        CLOSE = "Close", "Close"
-
-    user = models.ForeignKey(to=get_user_model(), on_delete=models.CASCADE)
-    products = models.ManyToManyField(
-        to="shop.Product",
-        related_name="products",
-        blank=True,
-        null=True,
-    )
-    date_time_create = models.DateTimeField(null=True, auto_now_add=True)
-    date_time_update = models.DateTimeField(null=True, auto_now=True)
-    status = models.CharField(choices=STATUS_CHOICE.choices, default=STATUS_CHOICE.NEW, max_length=10)
-    order_num = models.UUIDField(unique=True, null=True)
-
-    def total_price(self):
-        return sum(product.price for product in self.products.all())
+    first_name = models.CharField(max_length=50, null=True)
+    last_name = models.CharField(max_length=50, null=True)
+    email = models.EmailField(null=True)
+    address = models.CharField(max_length=250, null=True)
+    postal_code = models.CharField(max_length=5, null=True)
+    city = models.CharField(max_length=100, null=True)
+    created = models.DateTimeField(auto_now_add=True, null=True)
+    updated = models.DateTimeField(auto_now=True, null=True)
+    paid = models.BooleanField(default=False)
 
     class Meta:
-        verbose_name = _("Order")
-        verbose_name_plural = _("Orders")
+        ordering = ('-created',)
+        verbose_name = 'Order'
+        verbose_name_plural = 'Orders'
+
+    def __str__(self):
+        return 'Order {}'.format(self.id)
+
+    def get_total_cost(self):
+        return sum(item.get_cost() for item in self.items.all())
+
+
+class OrderItem(models.Model):
+    order = models.ForeignKey(Order, related_name='items', on_delete=models.CASCADE)
+    product = models.ForeignKey("Product", related_name='order_items', on_delete=models.DO_NOTHING)
+    price = models.DecimalField(max_digits=10, decimal_places=2)
+    quantity = models.PositiveIntegerField(default=1)
+
+    def __str__(self):
+        return '{}'.format(self.id)
+
+    def get_cost(self):
+        return self.price * self.quantity
+
+
+# class Order(models.Model):
+#     class STATUS_CHOICE(models.TextChoices):
+#         NEW = "New", "New"
+#         APPROVE = "Approve", "Approve"
+#         DELIVERY = "Delivery", "Delivery"
+#         CLOSE = "Close", "Close"
+#
+#     user = models.ForeignKey(to=get_user_model(), on_delete=models.CASCADE)
+#     products = models.ManyToManyField(
+#         to="shop.Product",
+#         related_name="products",
+#         blank=True,
+#         null=True,
+#     )
+#     date_time_create = models.DateTimeField(null=True, auto_now_add=True)
+#     date_time_update = models.DateTimeField(null=True, auto_now=True)
+#     status = models.CharField(choices=STATUS_CHOICE.choices, default=STATUS_CHOICE.NEW, max_length=10)
+#     order_num = models.UUIDField(unique=True, null=True)
+#
+#     def total_price(self):
+#         return sum(product.price for product in self.products.all())
+#
+#     class Meta:
+#         verbose_name = _("Order")
+#         verbose_name_plural = _("Orders")
 
 
 class Product(BaseEntity):

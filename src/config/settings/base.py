@@ -72,6 +72,7 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
+                "shop.context_processors.basket",
             ],
         },
     },
@@ -168,3 +169,33 @@ CELERY_RESULT_SERIALIZER = "json"
 CELERY_TASK_SERIALIZER = "json"
 
 BASKET_SESSION_ID = 'basket'
+
+AUTHENTICATION_METHODS = {'phone', 'email'}
+
+AUTH_USER_MODEL = "accounts.Customers"
+
+CRISPY_TEMPLATE_PACK = "bootstrap4"
+# Default primary key field type
+# https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
+
+DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+RECIEVERS_EMAIL = ["bastonsv@gmail.com"]
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+EMAIL_USE_TLS = True
+
+EMAIL_HOST = 'smtp.gmail.com'
+
+EMAIL_HOST_USER = "eo90l.diplom@gmail.com"
+
+EMAIL_HOST_PASSWORD = "pbmnltyuwjmpbuzm"
+
+EMAIL_PORT = 587
+
+FAIL_SILENTLY = False
+
+USER_UPLOAD_IMAGE = "images/profiles/"
+
+DEFAULT_USER_AVATAR = "images/profiles/user-def.png"

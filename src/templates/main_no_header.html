@@ -28,7 +28,6 @@
     <![endif]-->
 </head>
 
-<body>
     <!-- top-header-->
     <div class="top-header">
         <div class="container">
@@ -109,18 +108,7 @@
                 <div class="row">
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                         <!-- navigations-->
-                        <div id="navigation">
-                            <ul>
-                                <li class="has-sub"><a href="#">Categories</a>
-                                    <ul>
-                                        {% for category in categories %}
-                                        <li><a href="{{ request.scheme }}://{{ request.get_host }}/{{ category.alias }}">{{ category.name }}</a></li>
-                                        {% endfor %}
-                                    </ul>
-                                </li>
-                               
-                            </ul>
-                        </div>
+
                     </div>
                     <!-- /.navigations-->
                 </div>
@@ -130,7 +118,8 @@
     <!-- /. header-section-->
 {% block content %}
 
-{% endblock content %}                <!-- /.footer-useful-links -->
+{% endblock content %}
+<!-- /.footer-useful-links -->
                 <div class=" col-lg-3 col-md-3 col-sm-3 col-xs-12">
                     <div class="footer-widget">
                         <h3 class="footer-title">Quick Links</h3>

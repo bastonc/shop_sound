@@ -54,6 +54,6 @@ class Basket:
         return sum(Decimal(item['price']) * item['quantity'] for item in
                    self.basket.values())
 
-    def clear_from_session(self):
+    def clear(self):
         del self.session[settings.BASKET_SESSION_ID]
         self.session.modified = True
