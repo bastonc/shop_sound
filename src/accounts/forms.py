@@ -1,5 +1,6 @@
 from django.contrib.auth import get_user_model
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, UsernameField
+from django.contrib.auth.forms import (AuthenticationForm, UserCreationForm,
+                                       UsernameField)
 from django.forms import ModelForm, TextInput
 from django.utils.translation import gettext_lazy as _
 
@@ -20,5 +21,6 @@ class ProfileForm(ModelForm):
 
 
 class LoginForm(AuthenticationForm):
-    username = UsernameField(label=_("Email or phone number"), widget=TextInput(attrs={"autofocus": True}),
-                             validators=[validate_phone_email])
+    username = UsernameField(
+        label=_("Email"), widget=TextInput(attrs={"autofocus": True}), validators=[validate_phone_email]
+    )

@@ -12,6 +12,7 @@
             <p>
                 {% if user.profile.id %}
                <a class="btn btn-warning btn-sm" href="{% url 'edit_profile' user.profile.id %}" role="button">Edit profile</a>
+               <a class="btn btn-warning btn-sm" href="{% url 'orders_history_user' user.profile.id %}" role="button">Show Orders</a>
                 {% endif %}
             </p>
             <p>Last Name: {{ user.last_name }}</p>

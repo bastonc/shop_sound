@@ -3,8 +3,10 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import include, path, re_path
 
-from shop.views import CategoryView, SubCategoryView, generate_category_view, generate_sub_category_view, \
-    generate_product_view, basket_add, basket_remove, BasketView, OrderCreateView
+from shop.views import (BasketView, CategoryView, OrderCreateView,
+                        SubCategoryView, basket_add, basket_remove,
+                        generate_category_view, generate_product_view,
+                        generate_sub_category_view)
 
 app_name = "shop"
 
@@ -16,6 +18,4 @@ urlpatterns = [
     path("remove/<int:pk>", basket_remove, name="remove_from_basket"),
     path("show", BasketView.as_view(), name="show_basket"),
     path("create", OrderCreateView.as_view(), name="order_create"),
-
-
 ]

@@ -1,6 +1,7 @@
 from decimal import Decimal
 
 from django.conf import settings
+from django.contrib.auth import get_user_model
 
 from shop.models import Product
 
@@ -16,13 +17,11 @@ class Basket:
     def add_product(self, product, quantity=1, update_quantity=False):
         product_id = str(product.id)
         if product_id not in self.basket:
-            self.basket[product_id] = {'quantity': 0,
-                                       'price': str(product.price),
-                                       'currency': product.currency}
+            self.basket[product_id] = {"quantity": 0, "price": str(product.price), "currency": product.currency}
         if update_quantity:
-            self.basket[product_id]['quantity'] = quantity
+            self.basket[product_id]["quantity"] = quantity
         else:
-            self.basket[product_id]['quantity'] += quantity
+            self.basket[product_id]["quantity"] += quantity
         self.save_to_session()
 
     def save_to_session(self):
@@ -40,19 +39,18 @@ class Basket:
         # получение объектов product и добавление их в корзину
         products = Product.objects.filter(id__in=product_ids)
         for product in products:
-            self.basket[str(product.id)]['product'] = product
+            self.basket[str(product.id)]["product"] = product
 
         for item in self.basket.values():
-            item['price'] = Decimal(item['price'])
-            item['total_price'] = item['price'] * item['quantity']
+            item["price"] = Decimal(item["price"])
+            item["total_price"] = item["price"] * item["quantity"]
             yield item
 
     def __len__(self):
-        return sum(item['quantity'] for item in self.basket.values())
+        return sum(item["quantity"] for item in self.basket.values())
 
     def get_total_price(self):
-        return sum(Decimal(item['price']) * item['quantity'] for item in
-                   self.basket.values())
+        return sum(Decimal(item["price"]) * item["quantity"] for item in self.basket.values())
 
     def clear(self):
         del self.session[settings.BASKET_SESSION_ID]

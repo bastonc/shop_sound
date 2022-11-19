@@ -39,7 +39,11 @@
                             </div>
                             <div class="post-content">
                                 <p> Price: {{ product.price }} {{ product.currency }}</p>
-                                <a href="#" class="btn btn-primary btn-sm">Buy</a>
+                                <form action="{% url "shop:add_to_basket" product.id %}" method="post">
+                                    {{ form_add_to_basket }}
+                                    {% csrf_token %}
+                                    <input type="submit" value="BUY">
+                                </form>
                             </div>
                         </div>
                     </div>

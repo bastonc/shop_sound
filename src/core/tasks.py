@@ -1,15 +1,15 @@
 import random
 
-from faker import Faker
 from celery import shared_task
 from django.conf import settings
+from faker import Faker
 
-from shop.models import Category, SubCategory, Product, Brand
+from shop.models import Brand, Category, Product, SubCategory
 
 
 @shared_task
 def generate_category():
-    categories_name = ['Mixing consoles', 'Microphones', 'ADC-DAC', 'Processors', 'Compressors', "Equalizers"]
+    categories_name = ["Mixing consoles", "Microphones", "ADC-DAC", "Processors", "Compressors", "Equalizers"]
     category_obj_list = []
     for category in categories_name:
         param = {
@@ -17,8 +17,8 @@ def generate_category():
             "name": category,
             "seo_title": f"{category} - by Best price | Baston Sound Shop",
             "seo_description": f"{category} - by Best price | Baston Sound Shop",
-            "alias": str(category).lower().replace(' ', '-'),
-            "image": settings.CATEGORY_IMAGE_DEFAULT
+            "alias": str(category).lower().replace(" ", "-"),
+            "image": settings.CATEGORY_IMAGE_DEFAULT,
         }
         category_obj_list.append(Category(**param))
     Category.objects.bulk_create(category_obj_list)
@@ -26,12 +26,14 @@ def generate_category():
 
 @shared_task
 def generate_sub_category():
-    sub_categories = {"mixing-consoles": ["Analogue consoles", "Digital consoles", "Consoles with Amp"],
-                      "microphones": ["Condenser microphones", "Dynamic microphones", "Instrumental microphones"],
-                      "adc-dac": ["Sound interfaces", "Sound card"],
-                      "processors": ["Reverb", "Pitch-tone", "Multiprocessing", "Delay"],
-                      "compressors": ["Multiband", "Analog compressor", "Digital compressor"],
-                      "equalizers": ["Parametric", "Graphic", "Paragraphic"]}
+    sub_categories = {
+        "mixing-consoles": ["Analogue consoles", "Digital consoles", "Consoles with Amp"],
+        "microphones": ["Condenser microphones", "Dynamic microphones", "Instrumental microphones"],
+        "adc-dac": ["Sound interfaces", "Sound card"],
+        "processors": ["Reverb", "Pitch-tone", "Multiprocessing", "Delay"],
+        "compressors": ["Multiband", "Analog compressor", "Digital compressor"],
+        "equalizers": ["Parametric", "Graphic", "Paragraphic"],
+    }
     sub_category_obj_list = []
     for category, sub_categories_list in sub_categories.items():
         current_category = Category.objects.filter(alias=category).get()
@@ -41,9 +43,9 @@ def generate_sub_category():
                 "name": sub_category,
                 "seo_title": f"{sub_category} - by Best price | Baston Sound Shop",
                 "seo_description": f"{sub_category} - by Best price | Baston Sound Shop",
-                "alias": str(sub_category).lower().replace(' ', '-'),
+                "alias": str(sub_category).lower().replace(" ", "-"),
                 "category": current_category,
-                "image": settings.SUB_CATEGORY_IMAGE_DEFAULT
+                "image": settings.SUB_CATEGORY_IMAGE_DEFAULT,
             }
             sub_category_obj_list.append(SubCategory(**param))
     SubCategory.objects.bulk_create(sub_category_obj_list)
@@ -73,7 +75,7 @@ def generate_product():
             product_name = f"{brand.name} {fake.word(ext_word_list=['KRK5', 'Square one', 'DL-241', 'GL-3200'])}"
             param = {
                 "brand": brand,
-                "name":  product_name,
+                "name": product_name,
                 "seo_title": f"{product_name} - by Best price | Baston Sound Shop",
                 "seo_description": f"{product_name} - by Best price | Baston Sound Shop",
                 "sub_category": sub_category,
@@ -81,9 +83,9 @@ def generate_product():
                 "availability": True,
                 "image": settings.PRODUCT_IMAGE_DEFAULT,
                 "price": 10000,
-                "currency": "UAH"
+                "currency": "UAH",
             }
-            #product_obj_list.append(Product(**param))
+            # product_obj_list.append(Product(**param))
             product = Product(**param)
             product.save()
-    #Product.objects.bulk_create(product_obj_list)
+    # Product.objects.bulk_create(product_obj_list)

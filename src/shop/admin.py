@@ -1,14 +1,15 @@
 from django.contrib import admin
 
-from shop.models import Brand, Category, Order, Pages, Product, SubCategory, OrderItem
+from shop.models import (Brand, Category, Order, OrderItem, Pages, Product,
+                         SubCategory)
 
 
-# class OrderItemInline(admin.TabularInline):
-#     model = OrderItem
-#     raw_id_fields = ['product']
-#
-#
-# #@admin.register(Order)
+class OrderItemInline(admin.TabularInline):
+    model = OrderItem
+    raw_id_fields = ["product"]
+
+
+# @admin.register(Order)
 # class OrderAdmin(admin.ModelAdmin):
 #     list_display = ['id', 'first_name', 'last_name', 'email',
 #                     'address', 'postal_code', 'city', 'paid',
@@ -19,6 +20,6 @@ from shop.models import Brand, Category, Order, Pages, Product, SubCategory, Ord
 #     #     ordering = ('-created',)
 #     #     verbose_name = 'OrderAdmin'
 #     #     verbose_name_plural = 'OrdersAdmin'
-
-# Register your tests here.
-admin.site.register([Order, Category, SubCategory, Brand, Product, Pages])
+#
+# # Register your tests here.
+admin.site.register([Order, OrderItem, Category, SubCategory, Brand, Product, Pages])

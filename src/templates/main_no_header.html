@@ -76,7 +76,7 @@
                         {% else %}
                             <li><a href="{% url "login" %}" class="title hidden-xs">Login</a></li>
                             <li class="hidden-xs">|</li>
-                            <li><a href="{% url "registration" %}" class="title hidden-xs">Register</a></li>
+                            <li><a href="{% url "user" %}" class="title hidden-xs">Register</a></li>
                         {% endif %}
                             <li>
                                 {% with total_items=basket|length %}

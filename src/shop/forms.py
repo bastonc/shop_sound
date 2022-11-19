@@ -1,4 +1,5 @@
 from django import forms
+from django.contrib.auth import get_user_model
 from django.core.exceptions import ValidationError
 
 from shop.models import Order
@@ -14,16 +15,16 @@ class BasketAddProductForm(forms.Form):
 class OrderCreateForm(forms.ModelForm):
     class Meta:
         model = Order
-        fields = ['first_name', 'last_name', 'email', 'address', 'postal_code', 'city']
+        fields = ["first_name", "last_name", "email", "address", "postal_code", "city"]
 
     def clean_postal_code(self):
-        postal_code = self.cleaned_data['postal_code']
+        postal_code = self.cleaned_data["postal_code"]
         if len(str(postal_code)) > 6:
             raise ValidationError("Only 5 digits")
         return postal_code
+
     # def clean(self):
     #     cleaned_data = super().clean()
     #     postal_code = cleaned_data["postal_code"]
     #     if len(str(postal_code)) > 3:
     #         raise ValidationError("Only 5 digits")
-
