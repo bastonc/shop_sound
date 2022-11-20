@@ -63,7 +63,7 @@ class BasketView(TemplateView):
 
 
 class OrderCreateView(LoginRequiredMixin, TemplateView):
-    login_url = reverse_lazy("login")
+    login_url = reverse_lazy("accounts:login")
 
     def get(self, request, *args, **kwargs):
         context = super().get_context_data()
