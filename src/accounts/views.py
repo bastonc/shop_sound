@@ -1,12 +1,9 @@
 from django.conf import settings
 from django.contrib.auth import get_user_model, login
-from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView, LogoutView
 from django.http import HttpResponse
-from django.shortcuts import render
 from django.urls import reverse_lazy
-from django.utils import timezone
 from django.utils.encoding import force_str
 from django.utils.http import urlsafe_base64_decode
 from django.views.generic import (CreateView, RedirectView, TemplateView,
@@ -17,6 +14,8 @@ from accounts.helpers.create_profile import create_profile
 from accounts.helpers.token_generator import TokenGenerator
 from accounts.models import Profile
 from accounts.services.emails import send_registration_email
+from shop.helpers.search_processing import get_header
+from shop.models import OrderItem
 
 
 class Login(LoginView):
@@ -26,13 +25,13 @@ class Login(LoginView):
 
 
 class Logout(LogoutView):
-    next_page = reverse_lazy("login")
+    next_page = reverse_lazy("accounts:login")
 
 
 class Registration(CreateView):
     template_name = settings.REGISTRATION_TEMPLATE
     form_class = RegistrationForm
-    success_url = reverse_lazy("core:index")
+    success_url = reverse_lazy("accounts:register_confirm_thankyou")
 
     def form_valid(self, form):
         self.object = form.save(commit=False)
@@ -43,7 +42,7 @@ class Registration(CreateView):
 
 
 class ActivateUser(RedirectView):
-    url = reverse_lazy("core:index")
+    url = reverse_lazy("accounts:registration_complete")
 
     def get(self, request, uuid64, token, *args, **kwargs):
         try:
@@ -61,6 +60,10 @@ class ActivateUser(RedirectView):
         return HttpResponse("We can't activate you. Incorrect token")
 
 
+class RegistrationComplete(TemplateView):
+    template_name = "user/registration_complete.html"
+
+
 class ProfileView(LoginRequiredMixin, TemplateView):
     template_name = "user/profile.html"
 
@@ -76,9 +79,22 @@ class EditProfileView(LoginRequiredMixin, UpdateView):
         "h1": "Update profile",
     }
     extra_context = {"page": "profile", "meta": meta_page}
-    success_url = reverse_lazy("profile")
+    success_url = reverse_lazy("accounts:profile")
 
     def get(self, request, *args, **kwargs):
         if request.user.profile.id != kwargs["pk"]:
             return HttpResponse("Wrong! Incorrect profile id")
         return super().get(request, *args, **kwargs)
+
+
+class RegisterConfirmThankYou(TemplateView):
+    template_name = "user/register_confirm_thankyou.html"
+
+
+class HistoryOrderUser(LoginRequiredMixin, TemplateView):
+    def get(self, request, pk):
+        context = super().get_context_data()
+        context["order_items"] = OrderItem.objects.filter(user=request.user)
+        context, template_name = get_header(request=request, context=context, template_path="user/show_orders.html")
+        self.template_name = template_name
+        return self.render_to_response(context)

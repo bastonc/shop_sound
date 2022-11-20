@@ -23,8 +23,3 @@ class OrderCreateForm(forms.ModelForm):
             raise ValidationError("Only 5 digits")
         return postal_code
 
-    # def clean(self):
-    #     cleaned_data = super().clean()
-    #     postal_code = cleaned_data["postal_code"]
-    #     if len(str(postal_code)) > 3:
-    #         raise ValidationError("Only 5 digits")

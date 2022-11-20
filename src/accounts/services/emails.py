@@ -20,7 +20,7 @@ def send_registration_email(request, user_instance):
     )
 
     email = EmailMessage(
-        subject="Activate your LMS account", body=message, to=[user_instance.email, "bastonsv@gmail.com"]
+        subject="Baston Sound Shop - activate your account", body=message, to=[user_instance.email, "bastonsv@gmail.com"]
     )
     email.content_subtype = "html"
     email.send(fail_silently=settings.FAIL_SILENTLY)
