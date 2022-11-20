@@ -18,22 +18,14 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import include, path, re_path
 
-from accounts.views import (ActivateUser, EditProfileView, Login, Logout,
-                            ProfileView, Registration)
-from shop.views import (CategoryView, HistoryOrderUser, ProductView,
+from shop.views import (CategoryView, ProductView,
                         SubCategoryView)
 
 urlpatterns = [
     path("admin", admin.site.urls),
     path("api", include("api.urls")),
     path("", include("core.urls")),
-    path("login", Login.as_view(), name="login"),
-    path("logout", Logout.as_view(), name="logout"),
-    path("registration", Registration.as_view(), name="registration"),
-    path("activate/<str:uuid64>/<str:token>", ActivateUser.as_view(), name="activate_user"),
-    path("accounts/profile", ProfileView.as_view(), name="profile"),
-    path("edit-profile/<int:pk>", EditProfileView.as_view(), name="edit_profile"),
-    path("order-history/<int:pk>", HistoryOrderUser.as_view(), name="orders_history_user"),
+    path("user", include("accounts.urls")),
     # path("generate/", include("shop.urls")),
     path("basket", include("shop.urls")),
     re_path(r"^(?P<category_name>[-\w]+)$", CategoryView.as_view(), name="category_view"),
@@ -48,4 +40,4 @@ urlpatterns = [
         name="product_view",
     ),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-# static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+

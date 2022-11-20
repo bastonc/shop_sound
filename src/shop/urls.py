@@ -1,10 +1,7 @@
-from django.conf import settings
-from django.conf.urls.static import static
-from django.contrib import admin
-from django.urls import include, path, re_path
+from django.urls import path
 
-from shop.views import (BasketView, CategoryView, OrderCreateView,
-                        SubCategoryView, basket_add, basket_remove,
+from shop.views import (BasketView,  OrderCreateView,
+                        basket_add, basket_remove,
                         generate_category_view, generate_product_view,
                         generate_sub_category_view)
 
