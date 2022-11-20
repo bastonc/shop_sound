@@ -65,10 +65,12 @@ class RegistrationComplete(TemplateView):
 
 
 class ProfileView(LoginRequiredMixin, TemplateView):
+    login_url = reverse_lazy("accounts:login")
     template_name = "user/profile.html"
 
 
 class EditProfileView(LoginRequiredMixin, UpdateView):
+    login_url = reverse_lazy("accounts:login")
     model = Profile
     pk_url_kwarg = "pk"
     form_class = ProfileForm
@@ -92,6 +94,7 @@ class RegisterConfirmThankYou(TemplateView):
 
 
 class HistoryOrderUser(LoginRequiredMixin, TemplateView):
+    login_url = reverse_lazy("accounts:login")
     def get(self, request, pk):
         context = super().get_context_data()
         context["order_items"] = OrderItem.objects.filter(user=request.user)
