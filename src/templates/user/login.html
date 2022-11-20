@@ -10,7 +10,7 @@
             {% csrf_token %}
             <table class="table-dark">{{ form.as_table }}</table>
             <br>
-            <input type="submit" value="Login">  or <a href="{% url "registration" %}">REGISTER</a>
+            <input type="submit" value="Login">  or <a href="{% url "accounts:registration" %}">REGISTER</a>
         </form>
     </div>
 {% endblock content %}

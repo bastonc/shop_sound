@@ -44,7 +44,7 @@ class Order(models.Model):
 
 
 class OrderItem(models.Model):
-    user = models.ForeignKey(Customers, related_name="user", on_delete=models.DO_NOTHING, null=True)
+    user = models.ForeignKey(Customers, related_name="user", on_delete=models.CASCADE, null=True)
     order = models.ForeignKey(Order, related_name="items", on_delete=models.CASCADE)
     product = models.ForeignKey("Product", related_name="order_items", on_delete=models.DO_NOTHING)
     price = models.DecimalField(max_digits=10, decimal_places=2)
@@ -55,33 +55,6 @@ class OrderItem(models.Model):
 
     def get_cost(self):
         return self.price * self.quantity
-
-
-# class Order(models.Model):
-#     class STATUS_CHOICE(models.TextChoices):
-#         NEW = "New", "New"
-#         APPROVE = "Approve", "Approve"
-#         DELIVERY = "Delivery", "Delivery"
-#         CLOSE = "Close", "Close"
-#
-#     user = models.ForeignKey(to=get_user_model(), on_delete=models.CASCADE)
-#     products = models.ManyToManyField(
-#         to="shop.Product",
-#         related_name="products",
-#         blank=True,
-#         null=True,
-#     )
-#     date_time_create = models.DateTimeField(null=True, auto_now_add=True)
-#     date_time_update = models.DateTimeField(null=True, auto_now=True)
-#     status = models.CharField(choices=STATUS_CHOICE.choices, default=STATUS_CHOICE.NEW, max_length=10)
-#     order_num = models.UUIDField(unique=True, null=True)
-#
-#     def total_price(self):
-#         return sum(product.price for product in self.products.all())
-#
-#     class Meta:
-#         verbose_name = _("Order")
-#         verbose_name_plural = _("Orders")
 
 
 class Product(BaseEntity):
