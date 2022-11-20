@@ -32,14 +32,18 @@
                     <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 post-masonry ">
                         <div class="post-block">
                             <!-- post block -->
-                            <h4 class="post-title"><a href="{{ request.path }}/{{ product.id }}" class="title">{{ product.name }}</a></h4>
+                            <h4 class="post-title"><a href="{% url "product_view" current_category.alias current_sub_category.alias product.alias product.pk %}" class="title">{{ product.name.capitalize }}</a></h4>
                             <div class="post-img">
-                                <a href="{{ request.path }}/{{ product.id }}" class="img">
-                                    <img src="{{ request.scheme }}://{{ request.get_host }}/{{ product.image }}" height="150" width="150" /></a>
+                                <a href="{% url "product_view" current_category.alias current_sub_category.alias product.alias product.pk %}" class="img">
+                                    <img src="{{ MEDIA_URL }}{{ product.image }}" height="150" width="150" /></a>
                             </div>
                             <div class="post-content">
                                 <p> Price: {{ product.price }} {{ product.currency }}</p>
-                                <a href="#" class="btn btn-primary btn-sm">Buy</a>
+                                <form action="{% url "shop:add_to_basket" product.id %}" method="post">
+                                    {{ form_add_to_basket }}
+                                    {% csrf_token %}
+                                    <input type="submit" value="BUY">
+                                </form>
                             </div>
                         </div>
                     </div>

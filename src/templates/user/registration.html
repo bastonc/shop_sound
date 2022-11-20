@@ -1,0 +1,16 @@
+{% extends "main.html" %}
+{% block meta %}
+<meta name="description" content="{{ meta.description }}">
+    <title>{{ meta.title }} </title>
+{% endblock meta %}
+{% block content %}
+    <div class="d-flex justify-content-center">
+
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <table class="table-dark">{{ form.as_table }}</table>
+            <br>
+            <input type="submit" value="Registration">
+        </form>
+    </div>
+{% endblock content %}

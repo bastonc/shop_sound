@@ -72,6 +72,8 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
+                "shop.context_processors.basket",
+                "django.template.context_processors.media",
             ],
         },
     },
@@ -85,11 +87,11 @@ AUTH_USER_MODEL = "accounts.Customers"
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
 DATABASES = {
-    "default_sqlite": {
+    "default": {
         "ENGINE": "django.db.backends.sqlite3",
         "NAME": BASE_DIR / "db.sqlite3",
     },
-    "default": {
+    "default_postgres": {
         "ENGINE": "django.db.backends.postgresql",
         "NAME": os.environ.get("POSTGRES_DB"),
         "USER": os.environ.get("POSTGRES_USER"),
@@ -166,3 +168,61 @@ CELERY_RESULT_BACKEND = "redis://redis"
 CELERY_ACCEPT_CONTENT = ["application/json"]
 CELERY_RESULT_SERIALIZER = "json"
 CELERY_TASK_SERIALIZER = "json"
+
+BASKET_SESSION_ID = "basket"
+
+AUTHENTICATION_METHODS = {"phone", "email"}
+
+AUTH_USER_MODEL = "accounts.Customers"
+
+CRISPY_TEMPLATE_PACK = "bootstrap4"
+# Default primary key field type
+# https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
+
+DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+RECIEVERS_EMAIL = ["bastonsv@gmail.com"]
+
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+
+EMAIL_USE_TLS = True
+
+EMAIL_HOST = "smtp.gmail.com"
+
+EMAIL_HOST_USER = "eo90l.diplom@gmail.com"
+
+EMAIL_HOST_PASSWORD = "pbmnltyuwjmpbuzm"
+
+EMAIL_PORT = 587
+
+FAIL_SILENTLY = False
+
+USER_UPLOAD_IMAGE = "images/profiles/"
+
+DEFAULT_USER_AVATAR = "images/profiles/user-def.png"
+
+LOGIN_TEMPLATE = "user/login.html"
+
+REGISTRATION_TEMPLATE = "user/user.html"
+
+STATIC_URL = "static/"
+STATIC_ROOT = "static_collect/"
+
+MEDIA_URL = "media/"
+MEDIA_ROOT = os.path.join(BASE_DIR, "media_collect/")
+#MEDIA_ROOT = "media_collect/"
+
+
+STATICFILES_DIRS = [os.path.join(BASE_DIR, "static"), os.path.join(BASE_DIR, "media")]
+
+# Product image
+PRODUCT_UPLOAD_IMAGE = "media/image/products/"
+PRODUCT_IMAGE_DEFAULT = "static/images/non-image.png"
+
+# Sub-category image
+SUB_CATEGORY_UPLOAD_IMAGE = "media/image/sub-category/"
+SUB_CATEGORY_IMAGE_DEFAULT = "static/images/non-image.png"
+
+# Category image
+CATEGORY_UPLOAD_IMAGE = "media/image/category/"
+CATEGORY_IMAGE_DEFAULT = "static/images/non-image.png"

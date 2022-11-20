@@ -36,6 +36,3 @@ class TestModels(TestCase):
         for i, category in enumerate(category_list, start=0):
             self.assertEqual(category.name, name_list[i])
 
-    def test_create_order(self):
-        order = sample_order(self.user, self.product, self.product2)
-        self.assertEqual(order.total_price, 20000)

@@ -71,10 +71,30 @@
                 <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
                     <div class="account-section">
                         <ul>
-                            <li><a href="#" class="title hidden-xs">Login</a></li>
+                        {% if user.is_authenticated %}
+                            <li><a href="{% url "profile" %}" class="title hidden-xs"> Profile </a></li>
+                             <li><a href="{% url "logout" %}" class="title hidden-xs"> Logout </a></li>
+                        {% else %}
+                            <li><a href="{% url "login" %}" class="title hidden-xs">Login</a></li>
                             <li class="hidden-xs">|</li>
-                            <li><a href="#" class="title hidden-xs">Register</a></li>
-                            <li><a href="#" class="title"><i class="fa fa-shopping-cart"></i>   <sup class="cart-quantity">1</sup></a>
+                            <li><a href="{% url "user" %}" class="title hidden-xs">Register</a></li>
+                        {% endif %}
+                            <li>
+                                {% with total_items=basket|length %}
+                                    {% if basket|length > 0 %}
+                                        <a href="{% url "shop:show_basket" %}" class="title"><i class="fa fa-shopping-cart"></i>
+                                        <sup class="cart-quantity">
+                                            {{ total_items }}
+                                        </sup>
+                                    {% else %}
+                                        <i class="fa fa-shopping-cart"></i>
+                                        <sup class="cart-quantity">
+                                            Empty
+                                        </sup>
+                                    {% endif %}
+                                 {% endwith %}
+
+                            </a>
                             </li>
                         </ul>
                     </div>
