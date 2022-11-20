@@ -1,3 +1,6 @@
 from django.contrib import admin
+from django.contrib.auth.models import User
 
-# Register your models here.
+from accounts.models import Customers, Profile
+
+admin.site.register([Customers, Profile])

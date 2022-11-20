@@ -1,0 +1,47 @@
+{% extends "main_no_header.html" %}
+{% block meta %}
+<meta name="description" content="{{ meta.description }}">
+    <title>{{ meta.title }} </title>
+{% endblock meta %}
+{% block content %}
+ <p>
+ {% load static %}
+    <div class="container d-flex justify-content-center">
+
+            <div class="d-flex justify-content-center">
+            <p>
+                {% if user.profile.id %}
+               <a class="btn btn-warning btn-sm" href="{% url "profile" %}" role="button">Back to profile</a>
+
+                {% endif %}
+            </p>
+            <table class="table">
+                <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Product</th>
+                  <th scope="col">Price</th>
+                  <th scope="col">Quantity</th>
+                  <th scope="col">Paid</th>
+                  <th scope="col">Order num</th>
+                </tr>
+              </thead>
+              <tbody>
+              {% for item in order_items %}
+                <tr>
+                  <th scope="row">{{ forloop.counter }}</th>
+                  <td>{{ item.product.name }}</td>
+                  <td>{{ item.price }}</td>
+                  <td>{{ item.quantity }}</td>
+                  <td>{{ item.paid }}</td>
+                  <td>{{ item.order.id }}</td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+            </div>
+
+    </div>
+{% endblock content %}
+
+

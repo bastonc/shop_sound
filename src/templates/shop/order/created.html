@@ -1,0 +1,13 @@
+{% extends "main.html" %}
+{% load static %}
+{% block meta %}
+
+<title> {{ meta.title }} </title>
+<meta name="description" content="{{ meta.description }}">
+
+{% endblock meta %}
+{% block content %}
+ <h1>Thank you</h1>
+    <p>Your order has been successfully completed. Your order number is
+        <strong>{{ order.id }}</strong>.</p>
+{% endblock %}

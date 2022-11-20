@@ -1,0 +1,98 @@
+{% extends "main.html" %}
+{% load static %}
+{% block meta %}
+
+<title> {{ meta.title }} </title>
+<meta name="description" content="{{ meta.description }}">
+
+{% endblock meta %}
+
+
+{% block content %}
+ <!-- slider -->
+    <div class="slider">
+        <div class="owl-carousel owl-one owl-theme">
+            {%  for product in top_products %}
+            <div class="item">
+                <div class="slider-img">
+                    <img src="{% static './images/slider_1.jpg' %}" alt=""></div>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-5 col-md-8 col-sm-6 col-xs-12">
+                            <div class="slider-captions">
+                                <a href="{{ request.scheme }}://{{ request.get_host }}/{{ product.url }}/{{ product.pk }}">
+                                <div class="showcase-img">
+                                    <img src="{{ MEDIA_URL }}{{ product.image }}" alt="" style="width: 150px;">
+                                </div>
+                                <h1 class="slider-title">{{ product.name }} <span>ZED-10FX</span></h1>
+                                <p class="slider-price">{{ product.price }} {{ product.currency }} </p>
+
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+
+        </div>
+    </div>
+    <!-- /.slider -->
+    <!-- mobile showcase -->
+    <div class="space-medium">
+        <div class="container">
+            <div class="row">
+    <!-- seller products -->
+    <div class="container">
+        <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="box">
+                    <div class="box-head">
+                        <h3 class="head-title">Best Seller Product</h3>
+                    </div>
+                </div>
+            </div>
+            {% for product in top_products %}
+                <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                    <div class="showcase-block">
+                        <div class="display-logo ">
+                            <a href="{{ request.scheme }}://{{ request.get_host }}/{{ product.url }}/{{ product.pk }}">
+                                {{ product.name }}</a>
+                        </div>
+                        <div class="showcase-img">
+                            <a href="{{ request.scheme }}://{{ request.get_host }}/{{ product.url }}/{{ product.pk }}">
+                                <img src="{{ MEDIA_URL }}{{ product.image }}">
+                            </a>
+
+                        </div>
+                    </div>
+                </div>
+               {% endfor %}
+        </div>
+    </div>
+    <!-- footer -->
+    <div class="footer">
+        <div class="container">
+            <div class="row">
+                <!-- footer-company-links -->
+                <!-- footer-contact links -->
+                <div class=" col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                    <div class="footer-widget">
+                        <h3 class="footer-title">Contact Info </h3>
+                        <div class="contact-info">
+                            <span class="contact-icon"><i class="fa fa-map-marker"></i></span>
+                            <span class="contact-text">1683 Pickens Way Sherman,<br>
+Bird Street Albuquerque
+Us 75090</span>
+                        </div>
+                        <div class="contact-info">
+                            <span class="contact-icon"><i class="fa fa-phone"></i></span>
+                            <span class="contact-text">+180-123-4567 / 89</span>
+                        </div>
+                        <div class="contact-info">
+                            <span class="contact-icon"><i class="fa fa-envelope"></i></span>
+                            <span class="contact-text">info@demo.com</span>
+                        </div>
+                    </div>
+                </div>
+{% endblock content %}
