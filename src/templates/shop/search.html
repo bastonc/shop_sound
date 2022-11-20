@@ -31,10 +31,10 @@
                     <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 post-masonry ">
                         <div class="post-block">
                             <!-- post block -->
-                            <h4 class="post-title"><a href="{{ request.scheme }}://{{ request.get_host }}/{{ product.sub_category.category.alias }}/{{ product.sub_category.alias }}/{{ product.pk }}" class="title">{{ product.name }}</a></h4>
+                            <h4 class="post-title"><a href="{% url "product_view" current_category.alias current_sub_category.alias product.alias product.pk %}" class="title">{{ product.name.capitalize }}</a></h4>
                             <div class="post-img">
-                                <a href="{{ request.scheme }}://{{ request.get_host }}/{{ product.sub_category.category.alias }}/{{ product.sub_category.alias }}/{{ product.pk }}" class="img">
-                                 <img src="{{ request.scheme }}://{{ request.get_host }}/{{ product.image }} " height="150" width="150" />
+                                <a href="{% url "product_view" current_category.alias current_sub_category.alias product.alias product.pk %}" class="img">
+                                 <img src="{{ MEDIA_URL }}{{ product.image }} " height="150" width="150" />
                             </div>
                         </div>
                     </div>

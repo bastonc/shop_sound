@@ -22,7 +22,7 @@
                             <div class="slider-captions">
                                 <a href="{{ request.scheme }}://{{ request.get_host }}/{{ product.url }}/{{ product.pk }}">
                                 <div class="showcase-img">
-                                    <img src="{{ product.image }}" alt="" style="width: 150px;">
+                                    <img src="{{ MEDIA_URL }}{{ product.image }}" alt="" style="width: 150px;">
                                 </div>
                                 <h1 class="slider-title">{{ product.name }} <span>ZED-10FX</span></h1>
                                 <p class="slider-price">{{ product.price }} {{ product.currency }} </p>
@@ -61,7 +61,7 @@
                         </div>
                         <div class="showcase-img">
                             <a href="{{ request.scheme }}://{{ request.get_host }}/{{ product.url }}/{{ product.pk }}">
-                                <img src="{{ product.image }}">
+                                <img src="{{ MEDIA_URL }}{{ product.image }}">
                             </a>
 
                         </div>

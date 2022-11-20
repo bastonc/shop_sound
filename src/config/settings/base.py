@@ -73,6 +73,7 @@ TEMPLATES = [
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
                 "shop.context_processors.basket",
+                "django.template.context_processors.media",
             ],
         },
     },
@@ -86,11 +87,11 @@ AUTH_USER_MODEL = "accounts.Customers"
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
 DATABASES = {
-    "default_sqlite": {
+    "default": {
         "ENGINE": "django.db.backends.sqlite3",
         "NAME": BASE_DIR / "db.sqlite3",
     },
-    "default": {
+    "default_postgres": {
         "ENGINE": "django.db.backends.postgresql",
         "NAME": os.environ.get("POSTGRES_DB"),
         "USER": os.environ.get("POSTGRES_USER"),
@@ -207,8 +208,9 @@ REGISTRATION_TEMPLATE = "user/user.html"
 STATIC_URL = "static/"
 STATIC_ROOT = "static_collect/"
 
-MEDIA_ROOT = os.path.join(BASE_DIR, "media/")
-MEDIA_ROOT = "media_collect/"
+MEDIA_URL = "media/"
+MEDIA_ROOT = os.path.join(BASE_DIR, "media_collect/")
+#MEDIA_ROOT = "media_collect/"
 
 
 STATICFILES_DIRS = [os.path.join(BASE_DIR, "static"), os.path.join(BASE_DIR, "media")]

@@ -2,30 +2,30 @@ version: "3"
 
 services:
 
-  postgres:
-    image: postgres:12
-    expose:
-      - 5432
-    restart: always
-    volumes:
-      - local_postgres_data:/var/lib/postgresql/data
-      - local_postgres_data_backups:/backups
-    env_file:
-      - .env
+#  postgres:
+#    image: postgres:12
+#    expose:
+#      - 5432
+#    restart: always
+#    volumes:
+#      - local_postgres_data:/var/lib/postgresql/data
+#      - local_postgres_data_backups:/backups
+#    env_file:
+#      - .env
 
-  pgadmin:
-    container_name: pgadmin_container
-    image: dpage/pgadmin4
-    restart: always
-    env_file:
-      - .env
-    ports:
-      - 5000:80
-
-    volumes:
-      - pgadmin_data:/var/lib/pgadmin
-    depends_on:
-      - postgres
+#  pgadmin:
+#    container_name: pgadmin_container
+#    image: dpage/pgadmin4
+#    restart: always
+#    env_file:
+#      - .env
+#    ports:
+#      - 5000:80
+#
+#    volumes:
+#      - pgadmin_data:/var/lib/pgadmin
+#    depends_on:
+#      - postgres
 
   backend:
     build: ./
@@ -43,8 +43,8 @@ services:
       - /commands/start_server_${MODE}.sh
     env_file:
       - .env
-    depends_on:
-     - postgres
+#    depends_on:
+#     - postgres
 #
 #  mongodb:
 #    image: mongo:3-stretch
@@ -86,45 +86,45 @@ services:
       - backend
 
 
-  celery-service:
-    build: ./
-    command:
-      - /commands/start_celery.sh
+#  celery-service:
+#    build: ./
+#    command:
+#      - /commands/start_celery.sh
+#
+#    restart: always
+#    volumes:
+#      - ./src/:${CELERY_WORKING_DIR}
+#      - ./commands:/commands
+#    env_file:
+#      - .env
+#    ports:
+#      - 5556:5555
+#    depends_on:
+#      - redis
 
-    restart: always
-    volumes:
-      - ./src/:${CELERY_WORKING_DIR}
-      - ./commands:/commands
-    env_file:
-      - .env
-    ports:
-      - 5556:5555
-    depends_on:
-      - redis
+#  redis:
+#    image: redis
+#    env_file:
+#      - .env
+#    restart: always
+#    depends_on:
+#      - backend
 
-  redis:
-    image: redis
-    env_file:
-      - .env
-    restart: always
-    depends_on:
-      - backend
-
-  redisadmin:
-    container_name: redisadmin
-    image: rediscommander/redis-commander:latest
-    hostname: redisadmin
-    restart: always
-    ports:
-      - 8092:8081
-    env_file:
-      - .env
+#  redisadmin:
+#    container_name: redisadmin
+#    image: rediscommander/redis-commander:latest
+#    hostname: redisadmin
+#    restart: always
+#    ports:
+#      - 8092:8081
+#    env_file:
+#      - .env
 
 volumes:
-  local_postgres_data:
-  local_postgres_data_backups:
-  pgadmin_data:
-  mongo_data:
+#  local_postgres_data:
+#  local_postgres_data_backups:
+#  pgadmin_data:
+#  mongo_data:
   static_content:
   media_content:
 
