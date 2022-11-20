@@ -203,7 +203,7 @@ DEFAULT_USER_AVATAR = "images/profiles/user-def.png"
 
 LOGIN_TEMPLATE = "user/login.html"
 
-REGISTRATION_TEMPLATE = "user/user.html"
+REGISTRATION_TEMPLATE = "user/registration.html"
 
 STATIC_URL = "static/"
 STATIC_ROOT = "static_collect/"
