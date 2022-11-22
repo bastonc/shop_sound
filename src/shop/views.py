@@ -1,10 +1,12 @@
+from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse_lazy
 from django.views.decorators.http import require_POST
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, UpdateView
 
+from accounts.models import Customers, Profile
 from core.tasks import (generate_category, generate_product,
                         generate_sub_category)
 from shop.basket import Basket
@@ -14,7 +16,7 @@ from shop.helpers.categories_processing import (get_current_category,
                                                 get_item_product, get_products,
                                                 get_sub_category)
 from shop.helpers.search_processing import get_header
-from shop.models import OrderItem, Product
+from shop.models import OrderItem, Product, Order
 
 
 class CategoryView(TemplateView):
@@ -63,12 +65,12 @@ class BasketView(TemplateView):
 
 
 class OrderCreateView(LoginRequiredMixin, TemplateView):
-    login_url = reverse_lazy("accounts:login")
 
     def get(self, request, *args, **kwargs):
         context = super().get_context_data()
         context, template_name = get_header(request=request, context=context, template_path="shop/order/create.html")
-        context["form"] = OrderCreateForm
+        form = OrderCreateForm(instance=request.user)
+        context["form"] = form
         context["basket"] = Basket(request)
         self.template_name = template_name
         return self.render_to_response(context)

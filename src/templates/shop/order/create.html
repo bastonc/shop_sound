@@ -11,12 +11,17 @@
     <div class="container w-100">
         <div class="row">
             <div class="col">
+                {{ user.first_name }}
                 <form method="post" class="order-form">
                     <table class="table-dark">{{ form.as_table }}</table>
                     <p><input type="submit" value="Finish"></p>
                     {% csrf_token %}
                 </form>
             </div>
+            <script>
+                document.getElementById("id_first_name").value = {{ user.first_name }};
+                document.getElementById("id_last_name").value = {{ user.last_name }};
+            </script>
             <div class="col">
                 <h3>Your order</h3>
                 <ul>
