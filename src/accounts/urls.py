@@ -5,9 +5,9 @@ from accounts.views import Login, Logout, Registration, RegisterConfirmThankYou,
 
 app_name = "accounts"
 urlpatterns = [
-    path("login", Login.as_view(), name="login"),
-    path("logout", Logout.as_view(), name="logout"),
-    path("registration", Registration.as_view(), name="registration"),
+    path("login/", Login.as_view(), name="login"),
+    path("logout/", Logout.as_view(), name="logout"),
+    path("registration/", Registration.as_view(), name="registration"),
     path("registration-confirm", RegisterConfirmThankYou.as_view(), name="register_confirm_thankyou"),
     path("activate/<str:uuid64>/<str:token>", ActivateUser.as_view(), name="activate_user"),
     path("registration-complete", RegistrationComplete.as_view(), name="registration_complete"),
