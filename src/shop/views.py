@@ -55,6 +55,7 @@ class ProductView(TemplateView):
 
 
 class BasketView(TemplateView):
+
     def get(self, request, *args, **kwargs):
         context = super().get_context_data()
         context, template_name = get_header(request=request, context=context, template_path="shop/basket.html")
@@ -65,7 +66,7 @@ class BasketView(TemplateView):
 
 
 class OrderCreateView(LoginRequiredMixin, TemplateView):
-
+    login_url = reverse_lazy("accounts:login")
     def get(self, request, *args, **kwargs):
         context = super().get_context_data()
         context, template_name = get_header(request=request, context=context, template_path="shop/order/create.html")
